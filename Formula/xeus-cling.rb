@@ -10,13 +10,22 @@ class XeusCling < Formula
   depends_on "cppzmq" => :build
   depends_on "xtl" => :build
   depends_on "cxxopts" => :build
-  depends_on "nlohmann_json" => :build
+  depends_on "nlohmann_json"
   depends_on "xeus"
   depends_on "zeromq"
   depends_on "cling"
   depends_on "pugixml"
 
   def install
+    for xkernel in ["xcpp11", "xcpp14", "xcpp17"]
+      inreplace "share/jupyter/kernels/"+xkernel+"/kernel.json.in", "\"{connection_file}\",\n",
+         <<-EOS
+"{connection_file}",
+      "-I#{HOMEBREW_PREFIX}/include/",
+      "-L#{HOMEBREW_PREFIX}/lib/",
+         EOS
+    end
+       
     mkdir "build" do
       system "cmake", "-Dcppzmq_DIR=#{Formula["cppzmq"].lib}/cmake/cppzmq",
                       "-Dxtl_DIR=#{Formula["xtl"].lib}/cmake/xtl",
