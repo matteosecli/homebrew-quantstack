@@ -26,12 +26,26 @@ class XeusCling < Formula
                       "-DLLVM_CONFIG=#{Formula["cling"].libexec}/bin/llvm-config",
                       "-DClang_DIR=#{Formula["cling"].libexec}/lib/cmake/clang/",
                       "-Dcxxopts_DIR=#{Formula["cppzmq"].lib}/cmake/cxxopts",
+                      #"-DXEXTRA_JUPYTER_DATA_DIR=#{etc}/jupyter",
                       "-D DOWNLOAD_GTEST=ON",
-                      *std_cmake_args, "-DCMAKE_INSTALL_PREFIX=#{libexec}", ".."
+                      *std_cmake_args, "-DCMAKE_INSTALL_PREFIX=#{prefix}", ".."
+                      # installing in #{libexec} would prevent linking and thus auto discovery of new kernels
       system "make", "install"
     end
   end
 
+  def caveats
+    <<~EOS
+      If Jupyter is not installed #{HOMEBREW_PREFIX}/bin, it will not pick up the new kernels.
+      The xeus-cling kernels (for C++11, C++14 and C++17 respectively) can be registered with the following commands:
+        
+        jupyter kernelspec install #{share}/jupyter/kernels/xcpp11
+        jupyter kernelspec install #{share}/jupyter/kernels/xcpp14
+        jupyter kernelspec install #{share}/jupyter/kernels/xcpp17
+        
+    EOS
+  end
+  
   test do
     (testpath/"test.cpp").write <<~EOS
       #include <functional>
