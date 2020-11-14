@@ -2,7 +2,7 @@ class Xframe < Formula
   desc "C++ multi-dimensional labeled arrays and dataframe based on xtensor"
   homepage "https://xframe.readthedocs.io/en/latest/"
   url "https://github.com/xtensor-stack/xframe/archive/0.3.0.tar.gz"
-  sha256 "28d58ccc8f1400dab61cf3060a56bab9f0314341e0631d8b9cc92d05908ab226"
+  sha256 "1e8755b7a8b54dd8b7c7b65d99cc896e587ebf563c937f4aae1f73ad4f4c6be1"
   head "https://github.com/xtensor-stack/xframe.git"
   license "BSD-3-Clause"
 
