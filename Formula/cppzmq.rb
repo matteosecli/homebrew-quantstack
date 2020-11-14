@@ -1,10 +1,10 @@
 class Cppzmq < Formula
   desc "Header-only C++ binding for libzmq"
   homepage "http://www.zeromq.org/"
-  license "MIT"
   url "https://github.com/zeromq/cppzmq/archive/v4.7.1.tar.gz"
   sha256 "9853e0437d834cbed5d3c223bf1d755cadee70e7c964c6e42c4c6783dee5d02c"
   head "https://github.com/zeromq/cppzmq.git"
+  license "MIT"
 
   depends_on "cmake" => :build
   depends_on "zeromq"

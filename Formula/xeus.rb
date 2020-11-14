@@ -1,10 +1,10 @@
 class Xeus < Formula
   desc "C++ implementation of the Jupyter kernel protocol"
-  homepage "https://quantstack.net"
-  license "BSD 3-Clause"
+  homepage "https://xeus.readthedocs.io/en/latest/"
   url "https://github.com/jupyter-xeus/xeus/archive/0.24.4.tar.gz"
   sha256 "8165d87ca2308909c64cf918ab698cad3a5cb8db658da10cb38d78be6d76595a"
   head "https://github.com/jupyter-xeus/xeus.git"
+  license "BSD-3-Clause"
   
   depends_on "cmake" => :build
   depends_on "cppzmq" => :build
@@ -16,9 +16,9 @@ class Xeus < Formula
   def install
     mkdir "build" do
       system "cmake", "..",
-              "-Dxtl_DIR=#{Formula["xtl"].lib}/cmake/xtl",
-              "-Dxtl_DIR=#{Formula["nlohmann_json"].lib}/cmake/nlohmann_json",
-              *std_cmake_args
+             "-Dxtl_DIR=#{Formula["xtl"].lib}/cmake/xtl",
+             "-Dnlohmann_json_DIR=#{Formula["nlohmann_json"].lib}/cmake/nlohmann_json",
+             *std_cmake_args
       system "make", "install"
     end
   end

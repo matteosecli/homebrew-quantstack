@@ -1,10 +1,10 @@
 class Xtl < Formula
   desc "The x template library"
-  homepage "https://quantstack.net"
-  license "MIT"
+  homepage "https://xtl.readthedocs.io/en/latest/"
   url "https://github.com/xtensor-stack/xtl/archive/0.6.21.tar.gz"
   sha256 "97137014fa5da2a3598a267d06c8e28490b2e1c75b8f52358738bedb526fc771"
   head "https://github.com/xtensor-stack/xtl.git"
+  license "MIT"
 
   keg_only "it conflicts with xtensor's built-in xtl"
   

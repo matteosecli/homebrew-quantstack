@@ -1,10 +1,10 @@
 class XeusCling < Formula
   desc "Jupyter kernel for the C++ programming language"
-  homepage "https://quantstack.net"
-  license "BSD 3-Clause"
+  homepage "http://xeus-cling.readthedocs.io"
   url "https://github.com/jupyter-xeus/xeus-cling/archive/0.10.0.tar.gz"
   sha256 "c22d8f09d3337855d946ed19adb4837e9d3cffa9216007c9bdeb16ca284ff783"
   head "https://github.com/jupyter-xeus/xeus-cling.git"
+  license "BSD-3-Clause"
 
   depends_on "cmake" => :build
   depends_on "cppzmq" => :build
@@ -27,18 +27,18 @@ class XeusCling < Formula
     end
        
     mkdir "build" do
-      system "cmake", "-Dcppzmq_DIR=#{Formula["cppzmq"].lib}/cmake/cppzmq",
-                      "-Dxtl_DIR=#{Formula["xtl"].lib}/cmake/xtl",
-                      "-Dxtl_DIR=#{Formula["nlohmann_json"].lib}/cmake/nlohmann_json",
-                      "-Dxeus_DIR=#{Formula["xeus"].lib}/cmake/xeus",
-                      "-DCling_DIR=#{Formula["cling"].libexec}/lib/cmake/cling",
-                      "-DLLVM_CONFIG=#{Formula["cling"].libexec}/bin/llvm-config",
-                      "-DClang_DIR=#{Formula["cling"].libexec}/lib/cmake/clang/",
-                      "-Dcxxopts_DIR=#{Formula["cppzmq"].lib}/cmake/cxxopts",
-                      #"-DXEXTRA_JUPYTER_DATA_DIR=#{etc}/jupyter",
-                      "-D DOWNLOAD_GTEST=ON",
-                      *std_cmake_args, "-DCMAKE_INSTALL_PREFIX=#{prefix}", ".."
-                      # installing in #{libexec} would prevent linking and thus auto discovery of new kernels
+      system "cmake", "..",
+             "-Dcppzmq_DIR=#{Formula["cppzmq"].lib}/cmake/cppzmq",
+             "-Dxtl_DIR=#{Formula["xtl"].lib}/cmake/xtl",
+             "-Dnlohmann_json_DIR=#{Formula["nlohmann_json"].lib}/cmake/nlohmann_json",
+             "-Dxeus_DIR=#{Formula["xeus"].lib}/cmake/xeus",
+             "-DCling_DIR=#{Formula["cling"].libexec}/lib/cmake/cling",
+             "-DLLVM_CONFIG=#{Formula["cling"].libexec}/bin/llvm-config",
+             "-DClang_DIR=#{Formula["cling"].libexec}/lib/cmake/clang/",
+             "-Dcxxopts_DIR=#{Formula["cppzmq"].lib}/cmake/cxxopts",
+             #"-DXEXTRA_JUPYTER_DATA_DIR=#{etc}/jupyter",
+             "-DBUILD_TESTS=OFF",
+             *std_cmake_args
       system "make", "install"
     end
   end
