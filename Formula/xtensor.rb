@@ -7,7 +7,7 @@ class Xtensor < Formula
   license "BSD-3-Clause"
 
   depends_on "cmake" => :build
-  depends_on "xtl" => :build
+  depends_on "xtl"
   depends_on "matteosecli/quantstack/xsimd"
 
   def install
