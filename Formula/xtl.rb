@@ -7,7 +7,7 @@ class Xtl < Formula
   license "MIT"
 
   #keg_only "it conflicts with xtensor's built-in xtl"
-  conflicts_with "homebrew/core/xtensor", :because => "it conflicts with xtensor's built-in xtl"
+  #conflicts_with "homebrew/core/xtensor", :because => "it conflicts with xtensor's built-in xtl"
   
   depends_on "cmake" => :build
 
