@@ -8,7 +8,7 @@ class Xtensor < Formula
 
   depends_on "cmake" => :build
   depends_on "xtl" => :build
-  depends_on "matteosecli/xsimd"
+  depends_on "matteosecli/quantstack/xsimd"
 
   def install
     mkdir "build" do
