@@ -17,7 +17,7 @@ class Xtensor < Formula
             "-DXTENSOR_USE_XSIMD=ON",
             *std_cmake_args
       system "make", "install"
-    build
+    end
   end
 
   test do
