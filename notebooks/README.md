@@ -8,6 +8,7 @@ The notebooks are taken from:
 
 - Jupyter Xeus
   - https://github.com/jupyter-xeus/xeus-cling
+  - https://github.com/jupyter-xeus/xproperty
   - https://github.com/jupyter-xeus/xwidgets
 - Xtensor Stack
   - https://github.com/xtensor-stack/xsimd
