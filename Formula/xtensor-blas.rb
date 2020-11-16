@@ -14,7 +14,7 @@ class XtensorBlas < Formula
     mkdir "build" do
       system "cmake", "..",
             "-Dxtensor_DIR=#{Formula["xtensor"].lib}/cmake/xtensor",
-            "-DOpenBLAS_DIR_DIR=#{Formula["openblas"].lib}/cmake/openblas",
+            "-DOpenBLAS_DIR=#{Formula["openblas"].lib}/cmake/openblas",
             "-DBUILD_TESTS=OFF",
             *std_cmake_args
       system "make", "install"
