@@ -11,6 +11,7 @@ class Xwidgets < Formula
   depends_on "xproperty"
   depends_on "nlohmann_json"
   depends_on "xeus"
+  depends_on "zeromq" => :test
 
   def install
     mkdir "build" do
@@ -18,7 +19,7 @@ class Xwidgets < Formula
             "-Dxtl_DIR=#{Formula["xtl"].lib}/cmake/xtl",
             "-Dxproperty_DIR=#{Formula["xproperty"].lib}/cmake/xproperty",
             "-Dnlohmann_json_DIR=#{Formula["nlohmann_json"].lib}/cmake/nlohmann_json",
-            "-Dxeus_DIR=#{Formula["xproperty"].lib}/cmake/xeus",
+            "-Dxeus_DIR=#{Formula["xeus"].lib}/cmake/xeus",
             *std_cmake_args
       system "make", "install"
     end
@@ -30,6 +31,8 @@ class Xwidgets < Formula
       #include <string>
 
       #include "xwidgets/xbutton.hpp"
+      
+      using namespace xw;
 
       int main()
       {
@@ -45,7 +48,11 @@ class Xwidgets < Formula
         return ( desc == res ) ? 0 : 1;
       }
     EOS
-    system ENV.cxx, "test.cpp", "-I#{include}", "-std=c++14", "-o", "test"
+    system ENV.cxx, "test.cpp", "-I#{include}",
+                                "-L#{lib}", "-lxwidgets",
+                                "-L#{Formula["xeus"].lib}", "-lxeus",
+                                "-L#{Formula["zeromq"].lib}", "-lzmq",
+                                "-std=c++14", "-o", "test"
     system "./test"
   end
 end
