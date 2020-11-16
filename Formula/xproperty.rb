@@ -13,7 +13,7 @@ class Xproperty < Formula
     mkdir "build" do
       system "cmake", "..",
              "-Dxtl_DIR=#{Formula["xtl"].lib}/cmake/xtl",
-            "-DBUILD_TESTS=OFF", *std_cmake_args
+             "-DBUILD_TESTS=OFF", *std_cmake_args
       system "make", "install"
     end
   end
@@ -40,7 +40,7 @@ class Xproperty < Formula
             std::cout << "Observer: New value of bar: " << f.bar << std::endl;
         });
 
-        XVALIDATE(foo, bar, [](Foo&, double& proposal)
+        XVALIDATE(foo, bar, [](Foo&, int& proposal)
         {
             std::cout << "Validator: Proposal: " << proposal << std::endl;
             if (proposal < 0)
