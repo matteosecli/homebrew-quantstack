@@ -21,7 +21,8 @@ class NlohmannJson < Formula
 
       using nlohmann::json;
 
-      int main() {
+      int main()
+      {
         // create an empty structure (null)
         json j;
 
@@ -79,6 +80,8 @@ class NlohmannJson < Formula
             }
           }
         )"_json;
+        
+        return 0;
       }
     EOS
     system ENV.cxx, "test.cpp", "-I#{include}", "-std=c++11", "-o", "test"

@@ -22,7 +22,8 @@ class Xtl < Formula
     (testpath/"test.cpp").write <<~EOS
       #include "xtl/xplatform.hpp"
       
-      int main() {
+      int main()
+      {
         #if defined(__BYTE_ORDER) && __BYTE_ORDER == __BIG_ENDIAN
           return ( xtl::endianness() == endian::big_endian );
         #endif

@@ -1,6 +1,6 @@
 class XtensorFftw < Formula
   desc "FFTW bindings for the xtensor C++14 multi-dimensional array library"
-  homepage "http://xtensor-blas.readthedocs.io/en/latest/"
+  homepage "https://github.com/xtensor-stack/xtensor-fftw"
   url "https://github.com/xtensor-stack/xtensor-fftw/archive/0.2.6.tar.gz"
   sha256 "82d7492db4ae5593c2e419ddf1ece660ee315b269bc9e90176812e21d47bae3b"
   head "https://github.com/xtensor-stack/xtensor-fftw.git"
@@ -33,7 +33,8 @@ class XtensorFftw < Formula
         #include <complex>
         #include <xtensor/xio.hpp>
 
-        int main() {
+        int main()
+        {
           // generate a sinusoid field
           double dx = M_PI / 100;
           xt::xarray<double> x = xt::arange(0., 2 * M_PI, dx);

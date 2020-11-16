@@ -27,7 +27,8 @@ class Xtensor < Formula
       #include "xtensor/xio.hpp"
       #include "xtensor/xview.hpp"
 
-      int main() {
+      int main()
+      {
         xt::xarray<double> arr1
           {{11.0, 12.0, 13.0},
            {21.0, 22.0, 23.0},
@@ -36,10 +37,14 @@ class Xtensor < Formula
         xt::xarray<double> arr2
           {100.0, 200.0, 300.0};
 
-        xt::xarray<double> res = xt::view(arr1, 1) + arr2;
+        xt::xarray<double> result = xt::view(arr1, 1) + arr2;
+        
+        xt::xarray<double> expected
+          {121.0, 222.0, 323.0};
 
-        std::cout << res(2) << std::endl;
-        return 0;
+        std::cout << result(2) << std::endl;
+        
+        return xt::allclose( result, expected ) ? 0 : 1;
       }
     EOS
     system ENV.cxx, "test.cpp", "-I#{include}", "-std=c++14", "-o", "test"

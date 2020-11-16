@@ -26,7 +26,8 @@ class Xsimd < Formula
 
       struct mock_container {};
 
-      int main(void) {
+      int main()
+      {
         using u_vector_type = std::vector<double>;
         using a_vector_type = std::vector<double, aligned_allocator<double, XSIMD_DEFAULT_ALIGNMENT>>;
 
@@ -37,6 +38,7 @@ class Xsimd < Formula
         if(!std::is_same<u_vector_align, unaligned_mode>::value) abort();
         if(!std::is_same<a_vector_align, aligned_mode>::value) abort();
         if(!std::is_same<mock_align, unaligned_mode>::value) abort();
+        
         return 0;
       }
     EOS

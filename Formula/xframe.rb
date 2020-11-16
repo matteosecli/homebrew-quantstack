@@ -34,10 +34,12 @@ class Xframe < Formula
       using variable_type = xf::xvariable<double, coordinate_type>;
       using data_type = variable_type::data_type;
 
-      int main(void) {
+      int main()
+      {
         data_type dry_temperature_data = xt::eval(xt::random::rand({6, 3}, 15., 25.));
         dry_temperature_data(0, 0).has_value() = false;
         dry_temperature_data(2, 1).has_value() = false;
+        
         return 0;
       }
     EOS
