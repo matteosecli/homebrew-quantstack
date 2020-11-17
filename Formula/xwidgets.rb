@@ -24,6 +24,82 @@ class Xwidgets < Formula
       system "make", "install"
     end
   end
+  
+  def post_install
+    found_jupyter   = "Jupyter binary found at: "
+    fail_jupyter    = "Cannot find an installation of Jupyter."
+    install_jupyter = "Please install Jupyter with your favorite package manager and then manually install and activate the front-end extension (see caveats)."
+    
+    def install_nbextension(jupyter_bin)
+      install_classic = "Installing Classic Notebook frontend extension..."
+      install_lab     = "Installing JupyterLab frontend extension..."
+      success_classic = "Successfully installed Classic Notebook frontend extension."
+      success_lab     = "Successfully installed JupyterLab frontend extension."
+      fail_classic    = "Something went wrong when installing Classic Notebook frontend extension!"
+      fail_lab        = "Something went wrong when installing JupyterLab frontend extension!"
+      verify_jupyter  = "Please verify your Jupyter installation and then manually install and activate the frontend extension (see caveats)."
+      
+      todevnull = " 2> /dev/null" #(debug?) && "" || " 2> /dev/null"
+      
+      # Classic Notebook
+      ohai install_classic
+      if ( ( `#{jupyter_bin} nbextension install --system --py widgetsnbextension #{todevnull}`; $?.success? ) && ( `#{jupyter_bin} nbextension enable --system --py widgetsnbextension #{todevnull}`;  $?.success? ) )
+        ohai success_classic
+      else
+        opoo fail_classic; opoo verify_jupyter;
+      end
+      # JupyterLab
+      ohai install_lab
+      if ( `#{jupyter_bin} labextension install --app-dir=#{share}/jupyter/lab @jupyter-widgets/jupyterlab-manager #{todevnull}`; $?.success? )
+        ohai success_lab
+      else
+        opoo fail_lab; opoo verify_jupyter;
+      end
+    end
+    
+    jupyter_sys  = `which jupyter`.chomp
+    begin
+      jupyterlabFormula = Formula["jupyterlab"]
+      jupyter_brew = `which #{jupyterlabFormula.opt_bin}/jupyter`.chomp
+    rescue FormulaOrCaskUnavailableError
+      jupyter_brew = ""
+    end
+    
+    if !jupyter_sys.empty?
+      ohai found_jupyter+jupyter_sys
+      install_nbextension(jupyter_sys)
+    else
+      if !jupyter_brew.empty?
+        ohai found_jupyter+jupyter_brew
+        install_nbextension(jupyter_brew)
+      else
+        opoo fail_jupyter; opoo install_jupyter;
+      end
+    end
+  end
+
+  def caveats
+    <<~EOS
+      This package installs the backend extension and tries to install and activate
+      the frontend extension via Jupyter. If you don't have Jupyter or your Jupyter
+      installation is old / broken / in a non-standard path, you have to install
+      and activate the frontend extension yourself.
+      On a recent enough version of Jupyter, it should be enough to do:
+        
+        # For Classic Notebook
+        jupyter nbextension install --py widgetsnbextension
+        jupyter nbextension enable --py widgetsnbextension
+
+        # JupyterLab
+        jupyter labextension install @jupyter-widgets/jupyterlab-manager
+        
+      More info on extensions can be found at:
+      
+        (Classic Notebook)  https://jupyter-notebook.readthedocs.io/en/stable/extending/frontend_extensions.html
+        (JupyterLab)        https://jupyterlab.readthedocs.io/en/stable/user/extensions.html
+        
+    EOS
+  end
 
   test do
     (testpath/"test.cpp").write <<~EOS

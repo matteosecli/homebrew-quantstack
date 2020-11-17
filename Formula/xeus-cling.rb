@@ -54,7 +54,7 @@ class XeusCling < Formula
         
     EOS
   end
-  
+
   test do
     (testpath/"test.cpp").write <<~EOS
       #include <functional>
